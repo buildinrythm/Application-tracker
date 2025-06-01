@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <title>Job Application Tracker</title>
+</head>
+<body>
+
+  <header>
+    <h1>Job Application Tracker</h1>
+  </header>
+
+  <section id="controls">
+    <button id="add-job-btn">+ Add New Job</button>
+
+    <nav id="filter-menu">
+      <button class="filter">All</button>
+      <button class="filter">Applied</button>
+      <button class="filter">Interview</button>
+      <button class="filter">Rejected</button>
+      <button class="filter">Offer</button>
+    </nav>
+  </section>
+
+  <section id="job-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Date Applied</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Sample job rows -->
+        <tr>
+          <td>Amazon</td>
+          <td>Frontend Developer</td>
+          <td>2025-06-01</td>
+          <td>Interview</td>
+        </tr>
+        <tr>
+          <td>Google</td>
+          <td>SWE Intern</td>
+          <td>2025-05-29</td>
+          <td>Applied</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="job-form" hidden>
+    <h2>Add New Job</h2>
+    <form>
+      <label for="company">Company Name:</label>
+      <input type="text" id="company" name="company" required />
+
+      <label for="role">Role Title:</label>
+      <input type="text" id="role" name="role" required />
+
+      <label for="date">Date Applied:</label>
+      <input type="date" id="date" name="date" required />
+
+      <label for="status">Status:</label>
+      <select id="status" name="status">
+        <option value="Applied">Applied</option>
+        <option value="Interview">Interview</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Offer">Offer</option>
+      </select>
+
+      <button type="submit">Save Job</button>
+    </form>
+  </section>
+
+</body>
+</html>
