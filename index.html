@@ -16,13 +16,14 @@
   <section id="controls">
     <button id="add-job-btn">+ Add New Job</button>
 
-    <nav id="filter-menu">
-      <button class="filter">All</button>
-      <button class="filter">Applied</button>
-      <button class="filter">Interview</button>
-      <button class="filter">Rejected</button>
-      <button class="filter">Offer</button>
-    </nav>
+   <nav id="filter-menu">
+  <button class="filter" data-status="All">All</button>
+  <button class="filter" data-status="Applied">Applied</button>
+  <button class="filter" data-status="Interview">Interview</button>
+  <button class="filter" data-status="Rejected">Rejected</button>
+  <button class="filter" data-status="Offer">Offer</button>
+</nav>
+
   </section>
 
   <section id="job-list">
@@ -55,7 +56,7 @@
 
   <section id="job-form" hidden>
     <h2>Add New Job</h2>
-    <form>
+    <form id="job-form">
       <label for="company">Company Name:</label>
       <input type="text" id="company" name="company" required />
 
@@ -78,4 +79,5 @@
   </section>
 
 </body>
+
 </html>
