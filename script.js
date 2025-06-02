@@ -33,11 +33,25 @@ const statusCell = document.createElement('td');
 statusCell.textContent = statusInput.value;
 newRow.appendChild(statusCell);
 
-jobTable.appendChild(newRow);
-
 companyInput.value = '';
 roleInput.value = '';
 statusInput.value = '';
 dateInput.value = '';
+
+const deleteCell = document.createElement('td');
+const deleteButton = document.createElement('button');
+deleteButton.textContent = 'Delete';
+deleteButton.classList.add('delete-btn');
+
+deleteButton.addEventListener('click', function(){
+    newRow.remove();
+});
+
+deleteCell.appendChild(deleteButton);
+newRow.appendChild(deleteCell);
+
+jobTable.appendChild(newRow);
+
+
 
 });
