@@ -65,4 +65,59 @@ jobTable.appendChild(newRow);
 
 
 
+function removeFromStorage(jobToRemove) {
+  let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+  jobs = jobs.filter(function (job) {
+    return !(
+      job.company === jobToRemove.company &&
+      job.role === jobToRemove.role &&
+      job.status === jobToRemove.status &&
+      job.date === jobToRemove.date
+    );
+  });
+  localStorage.setItem('jobs', JSON.stringify(jobs));
+}
+
+
+
+});
+
+// Load jobs from localStorage on page load
+window.addEventListener('DOMContentLoaded', function () {
+  const savedJobs = JSON.parse(localStorage.getItem('jobs')) || [];
+
+  savedJobs.forEach(function (job) {
+    const newRow = document.createElement('tr');
+
+    const companyCell = document.createElement('td');
+    companyCell.textContent = job.company;
+    newRow.appendChild(companyCell);
+
+    const roleCell = document.createElement('td');
+    roleCell.textContent = job.role;
+    newRow.appendChild(roleCell);
+
+    const dateCell = document.createElement('td');
+    dateCell.textContent = job.date;
+    newRow.appendChild(dateCell);
+
+    const statusCell = document.createElement('td');
+    statusCell.textContent = job.status;
+    newRow.appendChild(statusCell);
+
+    const deleteCell = document.createElement('td');
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('delete-btn');
+
+    deleteButton.addEventListener('click', function () {
+      newRow.remove();
+      removeFromStorage(job);
+    });
+
+    deleteCell.appendChild(deleteButton);
+    newRow.appendChild(deleteCell);
+
+    jobTable.appendChild(newRow);
+  });
 });
