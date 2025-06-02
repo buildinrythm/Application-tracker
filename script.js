@@ -10,6 +10,17 @@ const roleInput = document.getElementById('role');
 const statusInput = document.getElementById('status');
 const dateInput = document.getElementById('date');
 
+const job = {
+  company: companyInput.value,
+  role: roleInput.value,
+  status: statusInput.value,
+  date: dateInput.value
+};
+
+let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+jobs.push(job);
+localStorage.setItem('jobs', JSON.stringify(jobs));
+
 console.log("Company:", companyInput.value);
 console.log("Role:", roleInput.value);
 console.log("Status:", statusInput.value);
