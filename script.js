@@ -63,24 +63,7 @@ newRow.appendChild(deleteCell);
 
 jobTable.appendChild(newRow);
 
-
-
-function removeFromStorage(jobToRemove) {
-  let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
-  jobs = jobs.filter(function (job) {
-    return !(
-      job.company === jobToRemove.company &&
-      job.role === jobToRemove.role &&
-      job.status === jobToRemove.status &&
-      job.date === jobToRemove.date
-    );
-  });
-  localStorage.setItem('jobs', JSON.stringify(jobs));
-}
-
-
-
-});
+ });
 
 // Load jobs from localStorage on page load
 window.addEventListener('DOMContentLoaded', function () {
@@ -119,5 +102,23 @@ window.addEventListener('DOMContentLoaded', function () {
     newRow.appendChild(deleteCell);
 
     jobTable.appendChild(newRow);
+
+    
   });
+
+function removeFromStorage(jobToRemove) {
+  let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+  jobs = jobs.filter(function (job) {
+    return !(
+      job.company === jobToRemove.company &&
+      job.role === jobToRemove.role &&
+      job.status === jobToRemove.status &&
+      job.date === jobToRemove.date
+    );
+  });
+  localStorage.setItem('jobs', JSON.stringify(jobs));
+}
+
+
+
 });
