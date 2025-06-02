@@ -1,60 +1,43 @@
-// === DOM Elements ===
-const form = document.getElementById('job-form');
-const jobList = document.querySelector('#job-list tbody');
-const addJobBtn = document.getElementById('add-job-btn');
-const filterButtons = document.querySelectorAll('.filter');
+const jobForm = document.getElementById('job-form');
+const jobTable = document.getElementById('job-table');
 
-// === Local Storage Data ===
-let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+ jobForm.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-// === Render Jobs ===
-function renderJobs(filter = 'All') {
-  jobList.innerHTML = '';
+  console.log(event)
+const companyInput = document.getElementById('company');
+const roleInput = document.getElementById('role');
+const statusInput = document.getElementById('status');
+const dateInput = document.getElementById('date');
 
-  const filteredJobs = filter === 'All'
-    ? jobs
-    : jobs.filter(job => job.status === filter);
+console.log("Company:", companyInput.value);
+console.log("Role:", roleInput.value);
+console.log("Status:", statusInput.value);
+console.log("Date:", dateInput.value);
 
-  filteredJobs.forEach((job, index) => {
-    const row = document.createElement('tr');
+const newRow = document.createElement('tr');
 
-    row.innerHTML = `
-      <td>${job.company}</td>
-      <td>${job.role}</td>
-      <td>${job.date}</td>
-      <td>${job.status}</td>
-    `;
+const companyCell = document.createElement('td');
+companyCell.textContent = companyInput.value;
+newRow.appendChild(companyCell);
 
-    jobList.appendChild(row);
-  });
-}
+const roleCell = document.createElement('td');
+roleCell.textContent = roleInput.value;
+newRow.appendChild(roleCell);
 
-// === Handle Form Submission ===
-form.addEventListener('submit', e => {
-  e.preventDefault();
+const dateCell = document.createElement('td');
+dateCell.textContent = dateInput.value;
+newRow.appendChild(dateCell);
 
-  const company = form.company.value.trim();
-  const role = form.role.value.trim();
-  const date = form.date.value;
-  const status = form.status.value;
+const statusCell = document.createElement('td');
+statusCell.textContent = statusInput.value;
+newRow.appendChild(statusCell);
 
-  if (!company || !role || !date || !status) return;
+jobTable.appendChild(newRow);
 
-  const newJob = { company, role, date, status };
-  jobs.push(newJob);
-  localStorage.setItem('jobs', JSON.stringify(jobs));
+companyInput.value = '';
+roleInput.value = '';
+statusInput.value = '';
+dateInput.value = '';
 
-  form.reset();
-  renderJobs();
 });
-
-// === Filter Buttons ===
-filterButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const status = button.getAttribute('data-status');
-    renderJobs(status);
-  });
-});
-
-// === Init ===
-renderJobs();
