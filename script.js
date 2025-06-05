@@ -21,9 +21,25 @@ console.log(status)
 console.log(date)
 
 const newRow = document.createElement('tr')
-const tableCell = document.createElement('td')
+const companyCell = document.createElement('td')
+const roleCell = document.createElement('td')
+const statusCell = document.createElement('td')
+const dateCell = document.createElement('td')
 
-tableCell.textContent = (company.value, role.value);
+/* Creating and attatching cells to the row */
+companyCell.textContent = company;
+roleCell.textContent = role;
+statusCell.textContent = status;
+dateCell.textContent = date;
+
+newRow.appendChild(companyCell);
+newRow.appendChild(roleCell);
+newRow.appendChild(statusCell);
+newRow.appendChild(dateCell);
+
+table.appendChild(newRow);
+
+
 
 console.log(tableCell)
 })
