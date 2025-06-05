@@ -37,9 +37,28 @@ newRow.appendChild(roleCell);
 newRow.appendChild(statusCell);
 newRow.appendChild(dateCell);
 
+/* attatching row to the table */
 table.appendChild(newRow);
 
+/* reset the form */
+form.reset();
 
+console.log(newRow)
 
-console.log(tableCell)
-})
+const rowData = [company,role, status, date]
+
+// 1. Get existing rows from localStorage or start with an empty array
+const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
+
+// 2. Add the current row to the array
+allRows.push(rowData);
+
+// 3. Save the updated array back into localStorage
+localStorage.setItem('allRows', JSON.stringify(allRows));
+
+localStorage.setItem('rowData', JSON.stringify(rowData))
+const retrievedRow = JSON.parse(localStorage.getItem('rowData'))
+
+console.log("Saved to localStorage:", localStorage.getItem('rowData'));
+
+});
