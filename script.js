@@ -1,71 +1,89 @@
-const form = document.getElementById('job-form');
-const table = document.getElementById('job-table');
+const form = document.getElementById('job-form')
+const table = document.getElementById('job-table')
+/* Stop browser reset */
+form.addEventListener('submit', function(event) {
+event.preventDefault();
 
-// Helper to create a row and add delete functionality
-function createTableRow(rowData, index) {
-  const newRow = document.createElement('tr');
+const companyInput = document.getElementById('company')
+const roleInput = document.getElementById('role')
+const statusInput = document.getElementById('status')
+const dateInput = document.getElementById('date')
+const deleteButton = document.createElement('button')
 
-  ['company', 'role', 'status', 'date'].forEach((key) => {
-    const cell = document.createElement('td');
-    cell.textContent = rowData[key];
-    newRow.appendChild(cell);
-  });
+/* Collecting input values */
+const company = companyInput.value;
+const role = roleInput.value;
+const status = statusInput.value;
+const date = dateInput.value;
 
-  // Create delete button
-  const deleteCell = document.createElement('td');
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Delete';
-  deleteButton.addEventListener('click', function () {
-    newRow.remove();
 
-    // Remove from localStorage
-    const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
-    allRows.splice(index, 1);
-    localStorage.setItem('allRows', JSON.stringify(allRows));
+console.log(company)
+console.log(role)
+console.log(status)
+console.log(date)
 
-    // Reload the table to re-index buttons
-    reloadTable();
-  });
+const newRow = document.createElement('tr');
+const companyCell = document.createElement('td');
+const roleCell = document.createElement('td');
+const statusCell = document.createElement('td');
+const dateCell = document.createElement('td');
+const deleteCell = document.createElement('td');
 
-  deleteCell.appendChild(deleteButton);
-  newRow.appendChild(deleteCell);
+/* Creating and attatching cells to the row */
+companyCell.textContent = company;
+roleCell.textContent = role;
+statusCell.textContent = status;
+dateCell.textContent = date;
+deleteButton.textContent = 'Delete';
 
-  return newRow;
-}
+deleteButton.addEventListener('click', function(){
+newRow.remove();
+});
+deleteCell.appendChild(deleteButton);
+newRow.appendChild(deleteCell)
 
-// Reloads the whole table (used after deletion to re-index)
-function reloadTable() {
-  const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
-  table.innerHTML = ''; // Clear all rows
+newRow.appendChild(companyCell);
+newRow.appendChild(roleCell);
+newRow.appendChild(statusCell);
+newRow.appendChild(dateCell);
 
-  allRows.forEach((rowData, index) => {
-    const row = createTableRow(rowData, index);
-    table.appendChild(row);
-  });
-}
+/* attatching row to the table */
+table.appendChild(newRow);
 
-// Form submit logic
-form.addEventListener('submit', function (event) {
-  event.preventDefault();
+/* reset the form */
+form.reset();
 
-  const rowData = {
-    company: document.getElementById('company').value,
-    role: document.getElementById('role').value,
-    status: document.getElementById('status').value,
-    date: document.getElementById('date').value,
-  };
+console.log(newRow)
 
-  // Save to localStorage
-  const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
-  allRows.push(rowData);
-  localStorage.setItem('allRows', JSON.stringify(allRows));
+const rowData = [company,role, status, date]
 
-  // Append new row to table
-  const newRow = createTableRow(rowData, allRows.length - 1);
-  table.appendChild(newRow);
+// 1. Get existing rows from localStorage or start with an empty array
+const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
 
-  form.reset();
+// 2. Add the current row to the array
+allRows.push(rowData);
+
+// 3. Save the updated array back into localStorage
+localStorage.setItem('allRows', JSON.stringify(allRows));
+
+
+console.log("Saved to localStorage:", localStorage.getItem('rowData'));
+
 });
 
-// Load saved rows on page load
-document.addEventListener('DOMContentLoaded', reloadTable);
+document.addEventListener('DOMContentLoaded', function () {
+  const table = document.getElementById('job-table');
+  const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
+
+  allRows.forEach(function (rowData) {
+    const newRow = document.createElement('tr');
+
+    rowData.forEach(function (cellData) {
+      const cell = document.createElement('td');
+      cell.textContent = cellData;
+      newRow.appendChild(cell);
+    });
+
+    table.appendChild(newRow);
+  });
+});
