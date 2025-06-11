@@ -1,89 +1,135 @@
-const form = document.getElementById('job-form')
-const table = document.getElementById('job-table')
-/* Stop browser reset */
-form.addEventListener('submit', function(event) {
-event.preventDefault();
+const form = document.getElementById('job-form');
+const jobTable = document.getElementById('job-table');
 
-const companyInput = document.getElementById('company')
-const roleInput = document.getElementById('role')
-const statusInput = document.getElementById('status')
-const dateInput = document.getElementById('date')
-const deleteButton = document.createElement('button')
+form.addEventListener('submit', function(event){
+  event.preventDefault();
 
-/* Collecting input values */
-const company = companyInput.value;
-const role = roleInput.value;
-const status = statusInput.value;
-const date = dateInput.value;
+  const companyInput = document.getElementById('company');
+  const roleInput = document.getElementById('role');
+  const dateInput = document.getElementById('date');
+  const statusInput = document.getElementById('status');
 
+  const company = companyInput.value;
+  const role = roleInput.value;
+  const date = dateInput.value;
+  const status = statusInput.value;
 
-console.log(company)
-console.log(role)
-console.log(status)
-console.log(date)
+  // Create a new row and cells
+  const newRow = document.createElement('tr');
 
-const newRow = document.createElement('tr');
-const companyCell = document.createElement('td');
-const roleCell = document.createElement('td');
-const statusCell = document.createElement('td');
-const dateCell = document.createElement('td');
-const deleteCell = document.createElement('td');
+  const companyCell = document.createElement('td');
+  companyCell.textContent = company;
+  newRow.appendChild(companyCell);
 
-/* Creating and attatching cells to the row */
-companyCell.textContent = company;
-roleCell.textContent = role;
-statusCell.textContent = status;
-dateCell.textContent = date;
-deleteButton.textContent = 'Delete';
+  const roleCell = document.createElement('td');
+  roleCell.textContent = role;
+  newRow.appendChild(roleCell);
 
-deleteButton.addEventListener('click', function(){
-newRow.remove();
-});
-deleteCell.appendChild(deleteButton);
-newRow.appendChild(deleteCell)
+  const dateCell = document.createElement('td');
+  dateCell.textContent = date;
+  newRow.appendChild(dateCell);
 
-newRow.appendChild(companyCell);
-newRow.appendChild(roleCell);
-newRow.appendChild(statusCell);
-newRow.appendChild(dateCell);
+  const statusCell = document.createElement('td');
+  statusCell.textContent = status;
+  newRow.appendChild(statusCell);
 
-/* attatching row to the table */
-table.appendChild(newRow);
+  const deleteCell = document.createElement('td');
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = "Delete";
+  deleteCell.appendChild(deleteButton);
+  newRow.appendChild(deleteCell);
 
-/* reset the form */
-form.reset();
+  jobTable.appendChild(newRow);
 
-console.log(newRow)
+  // Delete button functionality
+  deleteButton.addEventListener('click', function(){
+    newRow.remove();
 
-const rowData = [company,role, status, date]
+    // Reload saved jobs
+    let savedJobs = JSON.parse(localStorage.getItem('jobs')) || [];
 
-// 1. Get existing rows from localStorage or start with an empty array
-const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
+    // Filter out the job that matches the row's data
+    savedJobs = savedJobs.filter(job => {
+      return !(
+        job.company === companyCell.textContent &&
+        job.role === roleCell.textContent &&
+        job.status === statusCell.textContent &&
+        job.date === dateCell.textContent
+      );
+    });
 
-// 2. Add the current row to the array
-allRows.push(rowData);
+    // Update localStorage with filtered jobs
+    localStorage.setItem('jobs', JSON.stringify(savedJobs));
+  });
 
-// 3. Save the updated array back into localStorage
-localStorage.setItem('allRows', JSON.stringify(allRows));
+  // Save the new job entry in localStorage
+  const newEntry = {
+    company: company,
+    role: role,
+    status: status,
+    date: date
+  };
 
+  let savedJobs = JSON.parse(localStorage.getItem('jobs')) || [];
+  savedJobs.push(newEntry);
+  localStorage.setItem('jobs', JSON.stringify(savedJobs));
 
-console.log("Saved to localStorage:", localStorage.getItem('rowData'));
-
+  // Clear form inputs after submission (optional)
+  companyInput.value = '';
+  roleInput.value = '';
+  dateInput.value = '';
+  statusInput.value = '';
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  const table = document.getElementById('job-table');
-  const allRows = JSON.parse(localStorage.getItem('allRows')) || [];
+  const savedJobs = JSON.parse(localStorage.getItem('jobs')) || [];
 
-  allRows.forEach(function (rowData) {
+  savedJobs.forEach(function(job) {
     const newRow = document.createElement('tr');
 
-    rowData.forEach(function (cellData) {
-      const cell = document.createElement('td');
-      cell.textContent = cellData;
-      newRow.appendChild(cell);
+    const companyCell = document.createElement('td');
+    companyCell.textContent = job.company;
+
+    const roleCell = document.createElement('td');
+    roleCell.textContent = job.role;
+
+    const statusCell = document.createElement('td');
+    statusCell.textContent = job.status;
+
+    const dateCell = document.createElement('td');
+    dateCell.textContent = job.date;
+
+    const deleteCell = document.createElement('td');
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = "Delete";
+    deleteCell.appendChild(deleteButton);
+
+    deleteButton.addEventListener('click', function(){
+      newRow.remove();
+
+      // Reload saved jobs
+      let savedJobs = JSON.parse(localStorage.getItem('jobs')) || [];
+
+      // Filter out the job that matches the row's data
+      savedJobs = savedJobs.filter(j => {
+        return !(
+          j.company === companyCell.textContent &&
+          j.role === roleCell.textContent &&
+          j.status === statusCell.textContent &&
+          j.date === dateCell.textContent
+        );
+      });
+
+      // Update localStorage with filtered jobs
+      localStorage.setItem('jobs', JSON.stringify(savedJobs));
     });
 
-    table.appendChild(newRow);
+    newRow.appendChild(companyCell);
+    newRow.appendChild(roleCell);
+    newRow.appendChild(statusCell);
+    newRow.appendChild(dateCell);
+    newRow.appendChild(deleteCell);
+
+    jobTable.appendChild(newRow);
   });
 });
