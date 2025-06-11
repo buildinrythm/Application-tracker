@@ -1,78 +1,71 @@
-Job Tracker App
+🗂️ Job Tracker App
+A simple front-end project to track job applications using vanilla JavaScript and HTML. This app demonstrates managing dynamic data, manipulating the DOM, and persisting data with localStorage.
 
-A simple job application tracker built with vanilla JavaScript, HTML, and browser localStorage. Add, view, and delete job applications — all data persists across page reloads.
+📝 Project Brief
+This project is a practical exercise in:
 
+Handling form submissions and events
 
-preview.png
+Dynamically creating and removing table rows
 
-Features
-Add jobs with company, role, date applied, and status
+Saving, retrieving, and updating data in browser localStorage
 
-Display all jobs dynamically in a table
+Keeping UI and data in sync
 
-Delete individual job entries
-
-Persistent storage using localStorage
-
-Loads saved jobs automatically on page load
-
-Getting Started
-Prerequisites
-Modern web browser with JavaScript enabled
-
-No backend or database required
-
-Installation
-bash
-Copy
-Edit
-git clone
-cd job-tracker
-open index.html
-Or open index.html directly in your browser.
-
-Usage
-Enter job details in the form fields
-
-Click Submit to add the job to your list
-
-Delete jobs as needed — both from the page and localStorage
-
-Lessons Learned
-Working with localStorage: Storing and retrieving arrays of objects requires careful JSON serialization and parsing. Handling edge cases (empty or missing data) is key to avoiding errors.
-
-Dynamic DOM manipulation: Creating table rows and cells programmatically helps keep the interface flexible and reactive.
-
-Event delegation and memory management: Attaching event listeners to dynamically created elements requires attention to scope and cleanup.
-
-Data consistency: Keeping UI and storage in sync after deletions is essential for a smooth user experience.
-
-Debugging: Using browser developer tools (console, inspector) accelerated the troubleshooting process, especially with asynchronous events like DOMContentLoaded and form submissions.
-
-Future Improvements
-Add edit job functionality
-
-Implement sorting and filtering by status or date
-
-Improve UI with CSS frameworks or custom styles
-
-Add validation and error feedback on form inputs
-
-Use a frontend framework (React, Vue, etc.) for better state management
-
-Support for exporting/importing job data as CSV or JSON files
-
-Code Overview
-index.html: Form and table structure
-
-script.js: Handles event listeners, DOM updates, and localStorage syncing
-
-Jobs stored as JSON objects in localStorage under the key "jobs"
-
-Contributing
-Contributions and suggestions are welcome! Please open an issue or submit a pull request.
+📸 Screenshot
+![Screenshot](preview.png)
 
 
-Author
-Joshua Agbor
+🚀 Features
+✅ Add jobs with company, role, date, and status
 
+✅ Display job list in a dynamic table
+
+✅ Delete job entries from table and localStorage
+
+✅ Persist job data between page reloads using localStorage
+
+✅ Simple, clean UI with form validation basics
+
+🎯 Purpose
+This project was built to:
+
+Practice working with localStorage and JSON data
+
+Learn dynamic DOM manipulation with JavaScript
+
+Understand event handling and data persistence
+
+Strengthen foundational front-end JavaScript skills
+
+🛠️ Technologies Used
+HTML5
+
+JavaScript (ES6+)
+
+Browser localStorage API
+
+📂 Folder Structure
+job-tracker/
+│
+├── index.html
+├── script.js
+├── styles.css (optional)
+└── preview.png
+
+💡 Lessons Learned & Reflections
+"This project reinforced the importance of syncing UI updates with persistent storage. Handling JSON stringify/parse and dynamically adding/removing DOM elements was challenging but rewarding. I also realized I need to plan how to identify and delete specific items from storage properly." — Joshua
+
+📱 Next Steps (Optional)
+Implement editing existing job entries
+
+Add filtering and sorting by status or date
+
+Improve form validation and UX
+
+Add export/import functionality for jobs
+
+Style with CSS for better responsiveness and visuals
+
+📖 License
+Free to use for learning or inspiration.
